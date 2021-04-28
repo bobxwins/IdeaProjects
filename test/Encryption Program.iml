@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/src">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="15" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.base" />
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.controls" />
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.fxml" />
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.graphics" />
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.media" />
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.swing" />
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.web" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" exported="" name="bcpkix-jdk15on-168" level="application" />
+    <orderEntry type="library" exported="" name="bcprov-jdk15on-168" level="project" />
+    <orderEntry type="library" exported="" name="lib" level="application" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="src" level="project" />
+  </component>
+</module>

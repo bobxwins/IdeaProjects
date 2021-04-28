@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="bcprov-jdk15on-168">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/BouncyCastle/bcprov-jdk15on-168.jar!/" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.base" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.controls" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.fxml" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.graphics" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.media" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.swing" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib/javafx.web" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-15.0.1/lib" recursive="false" />
+  </library>
+</component>
