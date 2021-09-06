@@ -72,6 +72,8 @@ public class KeyWrap {
 
            MyClient.Client("Wrapped Key: " +new String(Hex.toHexString(WrapEncoded)));
 
+           MyClient.Client(KeyFilesReader.getPublicKeyFile().toString());
+
             return WrapEncoded;
 
         } catch (Exception e) {

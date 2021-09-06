@@ -34,7 +34,7 @@ public class MyClient {
 
             dout.close();
             s.close();
-          //  System.out.println(input +"\n");
+           System.out.println(input +"\n");
 
         } catch (Exception e) {
             System.out.println(e);

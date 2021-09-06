@@ -20,7 +20,7 @@ public  void Server () {
             DataInputStream dis = new DataInputStream(s.getInputStream());
             String str = dis.readUTF();
 
-           // System.out.println("message= " + str);
+           System.out.println("message= " + str);
 
             ss.close();
           //  byte[] input = str.getBytes(StandardCharsets.UTF_8);
