@@ -82,9 +82,6 @@ public class KeyPairs {
         KeyFactory fact = KeyFactory.getInstance("RSA");
 
         RSAPublicKeySpec keySpec = new RSAPublicKeySpec(Generatedmodulus ,GeneratedPubExpo  );
-        System.out.println("modulus:" + Generatedmodulus  );
-
-        System.out.println("public exponent is:" + GeneratedPubExpo);
 
         PublicKey publicKey = fact.generatePublic(keySpec);
 
@@ -104,8 +101,7 @@ public class KeyPairs {
         KeyFactory fact = KeyFactory.getInstance("RSA");
 
         RSAPrivateKeySpec keySpec = new RSAPrivateKeySpec(Generatedmodulus ,GeneratedPrivExpo  );
-
-        System.out.println("private exponent is:" + GeneratedPrivExpo);
+        
 
         PrivateKey privateKey = fact.generatePrivate(keySpec);
 

@@ -13,7 +13,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import java.util.*;
+import java.lang.*;
 import java.io.File;
 import javafx.scene.text.Text;
 
@@ -151,9 +152,12 @@ public class Main extends Application {
               String PubkeyPath= "C:\\Users\\Public\\PublicKey.txt";
                 String PrivkeyPath= "C:\\Users\\Public\\PrivateKey.txt";
                 text[1].setFill(Color.GREEN);
-                text[0].setFill(Color.ORANGERED);
-                text[1].setText("Keys succesfully generated at: ");
-                text[0].setText("\n"+PubkeyPath+"\n"+PrivkeyPath);
+                text[0].setFill(Color.BLACK);
+                text[1].setText("Keys succesfully generated at:"+ "\n"+PubkeyPath+"\n"+PrivkeyPath );
+
+                text[0].setText("\n" +"\n"+"\n"+"\n" +"modulus: "+
+               String.valueOf(KeyPairs.Generatedmodulus).substring(0,20)+"..."+"\n"+"public exponent: "+ KeyPairs.GeneratedPubExpo+
+               "\n"+"private exponent: " + String.valueOf(KeyPairs.GeneratedPrivExpo).substring(0,20)+"..." );
 
 
             } catch (Exception E) {
