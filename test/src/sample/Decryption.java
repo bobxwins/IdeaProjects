@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 public class Decryption {
 
-    private static String dir = "/Users/bob-w/downloads/encrypt";
+    private static String dir = "/Users/Public";
 
     public void DecryptFile(File file) {
         try {
@@ -33,8 +33,6 @@ public class Decryption {
                 Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "BC");
                 cipher.init(Cipher.DECRYPT_MODE, getSymmetricKey(), new IvParameterSpec(getIV()));
                 byte[] output = cipher.doFinal(input);
-
-
 
                 int FileFormat = file.getName().indexOf(".", file.getName().indexOf(".") + 1);
                 //  overloaded version of indexOf(), which takes the starting index (fromIndex) as 2nd parameter:
@@ -52,6 +50,8 @@ public class Decryption {
                 FileUtils.write(outFile, output);
                 File deletefile= new File(Main.FileForEncryption);
                 deletefile.delete();
+
+                // deletes whatever file existed after its decrypted
             }
 
 
@@ -66,18 +66,25 @@ public class Decryption {
         String input = Main.SignatureText;
 
         if (input.length() > 30 || ! Pattern.matches("[a-zA-Z.0-9_]*",input) ) {
+
+            // helst ik for lang signatur og kun bogsstaver og tal
+
             Main.text[0].setFill(Color.RED);
             Main.text[1].setFill(Color.RED);
             Main.text[0].setText("Signature failed!" +  "\n");
             Main.text[1].setText("Invalid Message! Check length and characters used!");
+            // 2 tekster der viser en fejl besked
             throw new Exception();
         }
         byte [] inputbytes = input.getBytes(StandardCharsets.UTF_8);
 
-        String inFile = "C:\\Users\\bob-w\\Downloads\\encrypt\\Message.txt";
-        String signatureFile = "C:\\Users\\bob-w\\Downloads\\encrypt\\Signature.txt";
+        String inFile = "C:\\Users\\Public\\Message.txt";
+        String signatureFile = "C:\\Users\\Public\\Signature.txt";
 
         FileUtils.write(inFile, inputbytes);
+
+          // inputtet skrives som plaintext i Message.TXT
+
 
         KeyPairs keys = new KeyPairs();
 
@@ -86,13 +93,23 @@ public class Decryption {
         Signature signer =
                 Signature.getInstance("SHA256withRSA", "BC");
 
+
+
+
         signer.initSign(privatekey);
+         // privatekey bruges sammen med SHA-256 algoritmen
+
         signer.update(inputbytes);
+
+        //  beskeden gives
+
        byte [] signature = signer.sign();
 
+       // her underskrives der
 
 
         FileUtils.write(signatureFile, signature);
+        // gemmes som fil
         Main.text[1].setFill(Color.ORANGERED);
 
 
@@ -105,8 +122,8 @@ public class Decryption {
      public static void VerifySignature() {
 
          try {
-             String inFile = "C:\\Users\\bob-w\\Downloads\\encrypt\\Message.txt";
-             String signatureFile = "C:\\Users\\bob-w\\Downloads\\encrypt\\Signature.txt";
+             String inFile = "C:\\Users\\Public\\Message.txt";
+             String signatureFile = "C:\\Users\\Public\\Signature.txt";
              byte[] input = FileUtils.readAllBytes(inFile);
              byte[] signature = FileUtils.readAllBytes(signatureFile);
 
@@ -116,9 +133,17 @@ public class Decryption {
                      Signature.getInstance("SHA256withRSA", "BC");
 
              verifier.initVerify(publickey);
+             // publickey gives
+
+
              verifier.update(input);
 
+             // besked gives
+
              boolean verify = verifier.verify(signature);
+
+             // her verificeres der via en boolean
+
              Main.text[1].setFill(Color.ORANGERED);
              Main.text[1].setText("Message received :"+ new String(input)+ "\n");
 
@@ -145,16 +170,18 @@ public class Decryption {
      }
     public static SecretKey getSymmetricKey()   {
 
-        byte[] SymmKey = FileUtils.readAllBytes("C:\\Users\\bob-w\\Downloads\\encrypt\\SymmetricKey.txt");
+        byte[] SymmKey = FileUtils.readAllBytes("C:\\Users\\Public\\SymmetricKey.txt");
 
         String StringKey = new String(SymmKey);
-        // if the bytes arent converted to string then decoded back to bytes, when creating a new key
-        // the value of the bytes will be based on the object ID, instead of the object's value
+        // bytes konverteres til en string først og decodes til bytes når en key indlæses som fil
+        // hvis ik dette gøres ville bytsne have Objektets ID i stedet for dets værdi.
 
         byte[] EncodedString = Base64.getDecoder().decode(StringKey);
         SecretKey DecodedKey = new SecretKeySpec(EncodedString, 0, EncodedString.length, "AES");
 
         byte[] EncodedKey = Base64.getEncoder().encode(DecodedKey.getEncoded());
+
+
 
         Main.text[0].setFill(Color.GREEN);
         Main.text[0].setText("The original key is: " + Hex.toHexString(EncodedKey));
@@ -164,7 +191,7 @@ public class Decryption {
 
     public static byte[] getIV () {
 
-        byte[] genIVByte = FileUtils.readAllBytes("C:\\Users\\bob-w\\Downloads\\encrypt\\GenIV.txt");
+        byte[] genIVByte = FileUtils.readAllBytes("C:\\Users\\Public\\GenIV.txt");
 
          String encodedIV = new String(genIVByte);
 

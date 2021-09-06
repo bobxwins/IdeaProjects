@@ -1,5 +1,7 @@
 package sample;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.PublicKey;
 import java.security.PrivateKey;
 import java.security.KeyPair;
@@ -9,58 +11,64 @@ import java.security.interfaces.RSAPublicKey;
 import java.math.BigInteger;
 
 import javafx.scene.paint.Color;
+import org.bouncycastle.crypto.params.RSAKeyParameters;
+import org.bouncycastle.jce.provider.JCERSAPublicKey;
 import org.bouncycastle.util.encoders.Hex;
 
 import java.security.spec.*;
 
 import java.security.KeyFactory;
 import java.security.spec.RSAPrivateKeySpec;
+import java.util.ArrayList;
+import java.util.List;
 
 public class KeyPairs {
 
 
+    public static BigInteger GeneratedPrivExpo ;
+    public static BigInteger GeneratedPubExpo ;
+    public static BigInteger Generatedmodulus ;
 
     public void KeyPairGenerator() {
 
         try {
-
             KeyPairGenerator generator =
                     KeyPairGenerator.getInstance("RSA", "BC");
             generator.initialize(3072);
 
+
+
             KeyPair keyPair =
                     generator.generateKeyPair();
 
+            //simple holder for en key pair
+
             PublicKey publicKey = keyPair.getPublic();
+
+            // Key interfaces
             PrivateKey privateKey = keyPair.getPrivate();
 
+
+
             RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
+            //RSA privateKey interface
+
             RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
+            //downcasting dvs  det bruger abstraktion, så når kvante computer opfindes
+            //skal programmet ikke ændres fuldstændigt
+            // RSA er en "detalje" som Keypair objektet ikke kender
 
 
-            BigInteger publicExponent = rsaPublicKey.getPublicExponent();
-            BigInteger  privateExponent = rsaPrivateKey.getPrivateExponent();
-            BigInteger  modulus = rsaPrivateKey.getModulus();
+            GeneratedPubExpo = rsaPublicKey.getPublicExponent();
 
-            byte [] ModulusBytes = String.valueOf(modulus).getBytes(StandardCharsets.UTF_8);
-            byte [] PublicExponentBytes = String.valueOf(publicExponent).getBytes(StandardCharsets.UTF_8);
-            byte [] PrivateExponentBytes = String.valueOf(privateExponent).getBytes(StandardCharsets.UTF_8);
-
-            FileUtils.write("C:\\Users\\bob-w\\Downloads\\encrypt\\Modulus.txt",
-                    ModulusBytes);
+            GeneratedPrivExpo  = rsaPrivateKey.getPrivateExponent();
+            Generatedmodulus = rsaPublicKey.getModulus();
 
 
+             getPrivateKey();
 
-            FileUtils.write("C:\\Users\\bob-w\\Downloads\\encrypt\\PublicExponent.txt",
-                    PublicExponentBytes);
-
-            FileUtils.write("C:\\Users\\bob-w\\Downloads\\encrypt\\PrivateExponent.txt",
-                    PrivateExponentBytes);
-
-            // First the public and private key exponents are generated, along with modulus.
-            // then the getPrivateKey + getPublicKey creates a keypair, using those exponents + modulus.
-            getPrivateKey();
             getPublicKey();
+
 
         } catch (Exception e) {
             Main.text[0].setFill(Color.RED);
@@ -68,48 +76,57 @@ public class KeyPairs {
         }
     }
 
-    public  static PublicKey getPublicKey() throws Exception  {
-//Generates the Public Key and stores it, and returns public key when called
-      byte[] ModulusBytes = FileUtils.readAllBytes("C:\\Users\\bob-w\\Downloads\\encrypt\\Modulus.txt");
-         String ModulusString = new String(ModulusBytes);
-        BigInteger ModulusInt= new BigInteger (ModulusString);
+    public static PublicKey getPublicKey() throws Exception {
+//Generates the Private Key , stores it,  returns the private key when called
+
         KeyFactory fact = KeyFactory.getInstance("RSA");
-        RSAPublicKeySpec keySpec = new RSAPublicKeySpec(ModulusInt, BigInteger.valueOf(65537));
+
+        RSAPublicKeySpec keySpec = new RSAPublicKeySpec(Generatedmodulus ,GeneratedPubExpo  );
+        System.out.println("modulus:" + Generatedmodulus  );
+
+        System.out.println("public exponent is:" + GeneratedPubExpo);
+
         PublicKey publicKey = fact.generatePublic(keySpec);
 
         byte [] PublicKeyBytes = String.valueOf(publicKey).getBytes(StandardCharsets.UTF_8);
 
-        sample.FileUtils.write("C:\\Users\\bob-w\\Downloads\\encrypt\\PublicKey.txt",
+        sample.FileUtils.write("C:\\Users\\Public\\PublicKey.txt",
                 PublicKeyBytes);
 
-        MyClient.Client(new String(PublicKeyBytes));
+        // gemmes som en fil så den samme keys kan bruges efter programmet lukkes ned.
+
         return publicKey;
-    }
+                }
 
-    public static PrivateKey getPrivateKey() throws Exception  {
+    public static PrivateKey getPrivateKey() throws Exception {
 //Generates the Private Key , stores it,  returns the private key when called
-
-        byte[] PKFileBytes = FileUtils.readAllBytes("C:\\Users\\bob-w\\Downloads\\encrypt\\PrivateExponent.txt");
-        byte[] ModulusBytes = FileUtils.readAllBytes("C:\\Users\\bob-w\\Downloads\\encrypt\\Modulus.txt");
-
-        String PrivateString = new String(PKFileBytes);
-       String ModulusString = new String(ModulusBytes);
-
-        BigInteger PrivateInt = new BigInteger (PrivateString);
-        BigInteger ModulusInt = new BigInteger (ModulusString);
 
         KeyFactory fact = KeyFactory.getInstance("RSA");
 
-        RSAPrivateKeySpec keySpec = new RSAPrivateKeySpec(ModulusInt,PrivateInt);
+        RSAPrivateKeySpec keySpec = new RSAPrivateKeySpec(Generatedmodulus ,GeneratedPrivExpo  );
+
+        System.out.println("private exponent is:" + GeneratedPrivExpo);
 
         PrivateKey privateKey = fact.generatePrivate(keySpec);
 
         byte [] PrivateKeyBytes = String.valueOf(privateKey).getBytes(StandardCharsets.UTF_8);
 
-        sample.FileUtils.write("C:\\Users\\bob-w\\Downloads\\encrypt\\PrivateKey.txt",
+        sample.FileUtils.write("C:\\Users\\Public\\PrivateKey.txt",
                 PrivateKeyBytes);
 
-            return privateKey;}
+
+
+        // gemmes som en fil så den samme keys kan bruges efter programmet lukkes ned.
+
+        return privateKey;}
+
+
+    public static void getpublicKeyFile () {
+
+
+    }
+
+
 
 }
 
