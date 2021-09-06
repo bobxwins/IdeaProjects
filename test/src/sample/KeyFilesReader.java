@@ -20,14 +20,16 @@ public class KeyFilesReader {
 
         String modulusString = Files.readAllLines(Paths.get("C:\\Users\\Public\\PrivateKey.txt")).get(2);
 
-        // only reads the 3rd line from the file privateKey.txt
+        // only reads the 3rd line from the file privateKey.txt, which is the value of modulus
 
         String privExpoString= Files.readAllLines(Paths.get("C:\\Users\\Public\\PrivateKey.txt")).get(3);
+        // only reads the 4th line from the file privateKey.txt, which is the value of the private exponent D
+
         String privExpoSubString=privExpoString.replaceAll("  private exponent: ","");
+        // removes all occurances of the string "private exponent:" by repacing them with an empty string,
+        // so only the number value of the privat exponent is returned from the funtion replaceAll
 
 
-
-        //replaces all occurrences of "private exponenet:" with nothing, so only the BigInteger number is returned
 
         String modulusSubString=modulusString.replaceAll("  modulus: ","");
 
@@ -60,7 +62,7 @@ public class KeyFilesReader {
 
         String modulusString = Files.readAllLines(Paths.get("C:\\Users\\Public\\PublicKey.txt")).get(2);
         String publicExpoString= Files.readAllLines(Paths.get("C:\\Users\\Public\\PublicKey.txt")).get(3);
-        String privExpoSubString=publicExpoString.replaceAll("  public exponent: ","");
+        String publicExpoSubString=publicExpoString.replaceAll("  public exponent: ","");
 
         //replaces all occurrences of "private exponenet:"
 
@@ -68,7 +70,7 @@ public class KeyFilesReader {
 
         BigInteger modulus = new BigInteger(modulusSubString);
 
-        BigInteger PublicExpo= new BigInteger(privExpoSubString);
+        BigInteger PublicExpo= new BigInteger(publicExpoSubString);
 
         RSAPublicKeySpec keySpec = new RSAPublicKeySpec(modulus ,PublicExpo );
 

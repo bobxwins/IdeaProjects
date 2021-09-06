@@ -13,10 +13,7 @@ public class MyClient {
     public  static void Client(String input) {
         try {
 
-            // hensigten var at public Key skulle kunne sendes over outputstreamet. men det virkede ikke
-            // i stedet for at sende publickey,
-            // skulle jeg have sendt det som 2 filer, med en exponent og modulus
-            // med andre ord, gjort det samme som ejg gjorde i Keypairs klassen
+
 
 
             Socket s = new Socket("localhost", 6666);
